@@ -1,4 +1,42 @@
-//add everything here
+plugins {
+    id 'java'
+    id 'application'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.mjc-school.stage2-module1-build-tools-gradle'
+            artifactId = 'demo'
+            version = '1.0-SNAPSHOT'
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation project(path: ':utils')
+    implementation project(path: ':utils')
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": "GradleDemo",
+                "Implementation-Version": archiveVersion)
+    }
+}
 
 test {
     useJUnitPlatform()

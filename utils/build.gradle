@@ -1,34 +1,40 @@
 plugins {
-    // id for library
-    // id for maven to publish jar to local repository
+    id 'java'
+    id 'application'
+    id 'java-library'
+    id 'maven-publish'
 }
 
 java {
-// provide sourceCompatibility
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 }
 
 repositories {
-// provide repository, where required dependencies are located
+    mavenCentral()
 }
 
 publishing {
     publications {
         maven(MavenPublication) {
-// provide groupId
-// provide artifactId
-// provide version
-
+            groupId = 'com.mjc-school.stage2-module1-build-tools-gradle'
+            artifactId = 'utils'
+            version = '1.0-SNAPSHOT'
             from components.java
         }
     }
 }
 
-//add Apache Apache Commons Lang 3.10 (or higher) dependency
+dependencies {
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+}
 
 jar {
     manifest {
-        //provide manifest with such attributes as 'Implementation-Title', 'Implementation-Version'
+        attributes("Implementation-Title": "GradleUtils",
+                "Implementation-Version": archiveVersion)
     }
+    archiveFileName.set("utils-1.3.5.jar")
 }
 
 test {
